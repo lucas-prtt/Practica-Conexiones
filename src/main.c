@@ -1,8 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <commons/txt.h>
+#include <main.h>
+
 
 int main(int argc, char* argv[]) {
-    txt_write_in_stdout("Hola, Operativos!!\n");
+    
+    say("hola");
+
     return 0;
 }
