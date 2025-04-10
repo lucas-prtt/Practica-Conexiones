@@ -39,4 +39,16 @@ int conectarSocketClient(char* ip, char* puerto){
     return soc;
 }
 
+int esperarClientes(int socket_server, void (*atenderCliente)(void*)){ //EsperarClientes(): Se queda siempre en esta funcion la cual crea threads. Toma la funcion atenderCliente para crear el thread "
+    while (1) { //Copiada de utnso.com (guia sockets), hay que ver si anda
+        pthread_t thread;
+        int *fd_conexion_ptr = malloc(sizeof(int));
+        *fd_conexion_ptr = accept(socket_server, NULL, NULL);
+        pthread_create(&thread,
+                    NULL,
+                    (void*) atenderCliente,
+                    fd_conexion_ptr);
+        pthread_detach(thread);
+    }
+}
 
