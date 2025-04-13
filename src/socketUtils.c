@@ -95,12 +95,12 @@ int paqueteSizeEntero(paquete * pac){
     return tam;
 }
 
-void paqueteAStream(paquete * pac, void * stream){
+int paqueteAStream(paquete * pac, void * stream){
     if (pac == NULL){
         stream = NULL;   
         return 0;
     }
-    int tam = paqueteSizeEntero(pac)
+    int tam = paqueteSizeEntero(pac);
     stream = malloc(tam);
     int offset = 0;
     while (pac->siguiente_segmento != NULL){
