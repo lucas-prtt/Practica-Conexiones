@@ -14,7 +14,7 @@ int crearSocket(char* ip, char* puerto, struct addrinfo *server_info){
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = AI_PASSIVE; // IGNORADA SI ip != NULL (en cliente)
 
-	getaddrinfo(ip, puerto, &hints, &servinfo);
+	getaddrinfo(ip, puerto, &hints, &server_info);
     soc = socket(server_info->ai_family, server_info->ai_socktype, server_info->ai_protocol);
     setsockopt(soc, SOL_SOCKET, SO_REUSEPORT, &(int){1}, sizeof(int));
     return soc;
