@@ -32,8 +32,8 @@ int crearSocketServer(char* puerto){
 
 int conectarSocketClient(char* ip, char* puerto){
     int soc;
-    struct addrinfo * serverInfo;
-    soc = crearSocket(ip, puerto, serverInfo);
+    struct addrinfo * serverInfo = NULL;
+    soc = crearSocket(ip, puerto, &serverInfo);
     connect(soc, serverInfo->ai_addr, serverInfo->ai_addrlen);
 	freeaddrinfo(serverInfo);
     return soc;
