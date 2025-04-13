@@ -26,7 +26,8 @@ int crearSocketServer(char* puerto){
     soc = crearSocket(NULL, puerto, serverInfo);
     bind(soc, serverInfo->ai_addr, serverInfo->ai_addrlen);
 	listen(soc, SOMAXCONN);
-    freeaddrinfo(serverInfo);
+	//No se porque si hago esto me tira segmentation fault, a pesar que se deberia haber reservado memoria en crearSocket()
+    //freeaddrinfo(serverInfo);
     return soc;
 }
 
