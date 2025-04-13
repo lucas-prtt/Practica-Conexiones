@@ -5,7 +5,7 @@ void say(char msg[]){
     printf("%s",msg);
 }
 
-int crearSocket(char* ip, char* puerto, struct addrinfo *servinfo){
+int crearSocket(char* ip, char* puerto, struct addrinfo *server_info){
     int soc;
     struct addrinfo hints;
 
