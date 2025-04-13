@@ -5,7 +5,7 @@ void say(char msg[]){
     printf("%s",msg);
 }
 
-int crearSocket(char* ip, char* puerto, struct addrinfo *server_info){
+int crearSocket(char* ip, char* puerto, struct addrinfo * * server_info){
     int soc;
     struct addrinfo hints;
 
@@ -14,20 +14,19 @@ int crearSocket(char* ip, char* puerto, struct addrinfo *server_info){
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = AI_PASSIVE; // IGNORADA SI ip != NULL (en cliente)
 
-	getaddrinfo(ip, puerto, &hints, &server_info);
-    soc = socket(server_info->ai_family, server_info->ai_socktype, server_info->ai_protocol);
+	getaddrinfo(ip, puerto, &hints, server_info);
+    soc = socket((*server_info)->ai_family, (*server_info)->ai_socktype, (*server_info)->ai_protocol);
     setsockopt(soc, SOL_SOCKET, SO_REUSEPORT, &(int){1}, sizeof(int));
     return soc;
 }
 
 int crearSocketServer(char* puerto){
     int soc;
-    struct addrinfo * serverInfo;
-    soc = crearSocket(NULL, puerto, serverInfo);
+    struct addrinfo * serverInfo = NULL;
+    soc = crearSocket(NULL, puerto, &serverInfo);
     bind(soc, serverInfo->ai_addr, serverInfo->ai_addrlen);
 	listen(soc, SOMAXCONN);
-	//No se porque si hago esto me tira segmentation fault, a pesar que se deberia haber reservado memoria en crearSocket()
-    //freeaddrinfo(serverInfo);
+	freeaddrinfo(serverInfo);
     return soc;
 }
 
